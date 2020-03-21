@@ -63,6 +63,17 @@ export class Designer {
       this.colors.push( new AnimalCrossingColor( 0, 0, 0, true ) );
     }
 
+    // put dups together
+    for ( let i = 0; i < this.colors.length; i ++ ) {
+      const color = this.colors[ i ];
+      for ( let j = i + 1; j < this.colors.length; j ++ ) {
+        const another = this.colors[ j ];
+        if ( color.equals( another ) ) {
+          this.matrix = this.matrix.map( ( v ) => v === j ? i : v );
+        }
+      }
+    }
+
     this.__emit( 'changeMatrix', { matrix: this.matrix } );
     this.__emit( 'changeColors', { colors: this.colors } );
   }
