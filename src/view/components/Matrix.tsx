@@ -1,3 +1,4 @@
+import { Designer } from '../../Designer';
 import { MatrixPixel } from './MatrixPixel';
 import React from 'react';
 import { State } from '../states/store';
@@ -24,6 +25,8 @@ export const Matrix = (): JSX.Element => {
       { matrix.map( ( pixel, iPixel ) => (
         <MatrixPixel
           key={ iPixel }
+          boldRight={ iPixel % 8 === 7 }
+          boldBottom={ Math.floor( iPixel / Designer.WIDTH ) % 8 === 7 }
           color={ colors[ pixel ] }
           iColor= { pixel }
         />

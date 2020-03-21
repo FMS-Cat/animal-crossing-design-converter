@@ -6,9 +6,9 @@ import { Dispatch } from 'redux';
 import styled from 'styled-components';
 
 // == styles =======================================================================================
-const Root = styled.div`
-  border-right: 1px solid rgba( 128, 128, 128, 0.5 );
-  border-bottom: 1px solid rgba( 128, 128, 128, 0.5 );
+const Root = styled.div<{ boldRight: boolean; boldBottom: boolean }>`
+  border-right: ${ ( { boldRight } ) => `1px solid rgba( 128, 128, 128, ${ boldRight ? 1.0 : 0.2 } )` };
+  border-bottom: ${ ( { boldBottom } ) => `1px solid rgba( 128, 128, 128, ${ boldBottom ? 1.0 : 0.2 } )` };
 `;
 
 // == props ========================================================================================
@@ -18,10 +18,13 @@ export interface MatrixPixelProps {
     css: string;
   };
   iColor: number;
+  boldRight: boolean;
+  boldBottom: boolean;
 }
 
 // == component ====================================================================================
-export const MatrixPixel = ( { color, iColor }: MatrixPixelProps ): JSX.Element => {
+export const MatrixPixel = ( props: MatrixPixelProps ): JSX.Element => {
+  const { color, iColor, boldRight, boldBottom } = props;
   const dispatch = useDispatch<Dispatch<Action>>();
   const isSelected = useSelector(
     ( state: State ) => state.matrix.selectedColor.indexOf( iColor ) !== -1
@@ -49,6 +52,8 @@ export const MatrixPixel = ( { color, iColor }: MatrixPixelProps ): JSX.Element 
 
   return (
     <Root
+      boldRight={ boldRight }
+      boldBottom={ boldBottom }
       onMouseEnter={ handleMouseEnter }
       onMouseLeave={ handleMouseLeave }
       style={ {
