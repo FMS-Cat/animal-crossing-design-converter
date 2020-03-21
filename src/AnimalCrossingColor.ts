@@ -66,12 +66,12 @@ export class AnimalCrossingColor {
         : min === r
           ? ( ( b - g ) / ( max - min ) + 3.0 )
           : ( ( r - b ) / ( max - min ) + 5.0 )
-    ) * 5.0 );
+    ) * 5.0 ) % 30;
 
     return new AnimalCrossingColor(
       h,
-      Math.round( ( max - min ) / max * 15.0 ),
-      Math.round( max * 15.0 )
+      Math.floor( ( max - min ) / max * 15.0 ),
+      Math.floor( max * 15.0 )
     );
   }
 }
