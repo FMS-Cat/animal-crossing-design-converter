@@ -6,8 +6,8 @@ import { useSelector } from 'react-redux';
 
 // == styles =======================================================================================
 const Root = styled.div`
-  width: 256px;
-  height: 256px;
+  width: 512px;
+  height: 512px;
   display: grid;
   grid-template-columns: repeat( 32, 1fr );
 `;

@@ -7,12 +7,11 @@ import styled from 'styled-components';
 
 // == styles =======================================================================================
 const Pixel = styled.div`
-  width: 16px;
-  height: 16px;
+  width: 32px;
+  height: 32px;
 `;
 
 const Value = styled.div`
-  font-size: 0.75rem;
   text-align: right;
 `;
 
