@@ -1,8 +1,11 @@
+import { App } from './view/components/App';
+import { Designer } from './Designer';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { App } from './view/components/App';
+
+const designer = new Designer();
 
 ReactDOM.render(
-  <App />,
+  <App designer={ designer } />,
   document.getElementById( 'app' )
 );

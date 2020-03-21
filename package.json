@@ -4,13 +4,21 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "dev": "parcel ./src/index.html"
+    "dev": "parcel ./src/index.html",
+    "build": "parcel build ./src/index.html",
+    "lint": "eslint \"src/**/*.{ts,tsx}\""
   },
   "devDependencies": {
     "@fms-cat/experimental": "^0.2.0",
     "@types/react": "^16.9.25",
     "@types/react-dom": "^16.9.5",
+    "@types/react-redux": "^7.1.7",
     "@types/styled-components": "^5.0.1",
+    "@typescript-eslint/eslint-plugin": "^2.24.0",
+    "@typescript-eslint/parser": "^2.24.0",
+    "eslint": "^6.8.0",
+    "eslint-plugin-react": "^7.19.0",
+    "immer": "^6.0.2",
     "parcel-bundler": "^1.12.4",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
