@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useState } from 'react';
 import { Colors } from './Colors';
 import { Designer } from '../../Designer';
 import { DesignerStateListener } from './DesignerStateListener';
@@ -21,6 +21,9 @@ export interface AppProps {
 
 // == component ====================================================================================
 const Fuck = ( { designer }: AppProps ): JSX.Element => {
+  const [ enableTransparent, setEnableTransparent ] = useState( true );
+  const [ dither, setDither ] = useState( false );
+
   const handleDragOver = useCallback(
     ( event: React.DragEvent ) => {
       event.preventDefault();
@@ -37,15 +40,29 @@ const Fuck = ( { designer }: AppProps ): JSX.Element => {
       const url = URL.createObjectURL( blob );
       const img = document.createElement( 'img' );
       img.onload = () => {
-        designer.loadImage( img, true );
+        designer.loadImage( img, enableTransparent, dither );
       };
       img.src = url;
     },
-    [ designer ]
+    [ designer, enableTransparent, dither ]
   );
 
   return (
     <Root onDragOver={ handleDragOver } onDrop={ handleDrop }>
+      <div>
+        <input
+          type="checkbox"
+          checked={ enableTransparent }
+          onClick={ () => setEnableTransparent( !enableTransparent ) }
+        /> enable transparent
+      </div>
+      <div>
+        <input
+          type="checkbox"
+          checked={ dither }
+          onClick={ () => setDither( !dither ) }
+        /> dither
+      </div>
       <DesignerStateListener designer={ designer } />
       <Colors />
       <Matrix />

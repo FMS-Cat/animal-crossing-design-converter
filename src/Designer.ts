@@ -25,7 +25,7 @@ export class Designer {
     this.context = this.canvas.getContext( '2d' )!;
   }
 
-  public loadImage( image: CanvasImageSource, enableTransparent: boolean ): void {
+  public loadImage( image: CanvasImageSource, enableTransparent: boolean, dither: boolean ): void {
     this.context.clearRect( 0, 0, Designer.WIDTH, Designer.HEIGHT );
     this.context.drawImage( image, 0, 0, Designer.WIDTH, Designer.HEIGHT );
 
@@ -39,11 +39,23 @@ export class Designer {
         continue;
       }
 
-      vecs.push( new Vector3( [
-        imageData.data[ i * 4 + 0 ],
-        imageData.data[ i * 4 + 1 ],
-        imageData.data[ i * 4 + 2 ],
-      ] ) );
+      if ( dither ) {
+        const ditherX = i % 2;
+        const ditherY = Math.floor( i / Designer.WIDTH ) % 2;
+        const ditherBias = 255 / 15 * ( ditherX + 2 * Math.abs( ditherX - ditherY ) ) / 3;
+
+        vecs.push( new Vector3( [
+          imageData.data[ i * 4 + 0 ] / 15 * 14 + ditherBias,
+          imageData.data[ i * 4 + 1 ] / 15 * 14 + ditherBias,
+          imageData.data[ i * 4 + 2 ] / 15 * 14 + ditherBias,
+        ] ) );
+      } else {
+        vecs.push( new Vector3( [
+          imageData.data[ i * 4 + 0 ],
+          imageData.data[ i * 4 + 1 ],
+          imageData.data[ i * 4 + 2 ],
+        ] ) );
+      }
     }
 
     const nColors = Designer.COLORS - ( enableTransparent ? 1 : 0 );
